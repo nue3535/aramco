@@ -9,7 +9,8 @@ from src.models import (
 from src.evaluate import (
     print_classification_report,
     plot_confusion_matrix,
-    plot_roc_curve
+    plot_roc_curve,
+    plot_feature_importance
 )
 
 def main():
@@ -51,6 +52,11 @@ def main():
     best_model = results[best_model_name]["model"]
     print(f"\n🏆 Best model: {best_model_name} with Accuracy = {results[best_model_name]['accuracy']:.4f}")
     save_model(best_model, path=f"outputs/models/best_model_{best_model_name.replace(' ', '_').lower()}.pkl")
+
+    # Feature Importance Table - Only use for tree-based models like Random Forest
+    if hasattr(best_model, "feature_importances_"):
+        feature_names = df.drop("Outcome", axis=1).columns
+        plot_feature_importance(best_model, feature_names)
 
 if __name__ == "__main__":
     main()

@@ -22,7 +22,7 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         pd.DataFrame: Cleaned data
     """
-    cols_with_zero = ['Pregnancies','Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']
+    cols_with_zero = ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']
     df[cols_with_zero] = df[cols_with_zero].replace(0, np.nan)
     df.fillna(df.median(), inplace=True)
     return df

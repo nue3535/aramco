@@ -64,3 +64,24 @@ def plot_roc_curve(y_true, y_scores, model_name="Model", save_path=None):
     print(f"ROC curve saved at: {save_path}")
     plt.close()
 
+def plot_feature_importance(model, feature_names, save_path="outputs/reports/feature_importance.png"):
+    """
+    Plot and save feature importance (tree-based models only).
+    """
+    if not hasattr(model, "feature_importances_"):
+        print("Feature importance not available for this model.")
+        return
+
+    importances = model.feature_importances_
+    sorted_indices = importances.argsort()
+
+    plt.figure(figsize=(8, 5))
+    plt.barh(range(len(importances)), importances[sorted_indices], align="center")
+    plt.yticks(range(len(importances)), [feature_names[i] for i in sorted_indices])
+    plt.title("Feature Importance")
+    plt.tight_layout()
+
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    plt.savefig(save_path)
+    print(f"Feature importance saved at: {save_path}")
+    plt.close()
