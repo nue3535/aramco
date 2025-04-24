@@ -9,6 +9,8 @@ pipeline = PipelineController(
     add_pipeline_tags=True
 )
 
+pipeline.set_default_execution_queue("default")
+
 # Step 1: Data Ingestion
 pipeline.add_step(
     name="data_ingestion",
