@@ -16,7 +16,6 @@ pipeline.add_step(
     name="data_ingestion",
     base_task_project="AI for Diabetes Prediction",
     base_task_name="Data Ingestion",
-    repo="https://github.com/nue3535/aramco.git",
     script="src/data_ingestion.py",
     working_directory=".",
     docker=None,
@@ -33,7 +32,6 @@ pipeline.add_step(
     parents=["data_ingestion"],
     base_task_project="AI for Diabetes Prediction",
     base_task_name="Data Preprocessing",
-    repo="https://github.com/nue3535/aramco.git",
     script="src/data_preprocessing.py",
     working_directory=".",
     arguments={
@@ -50,7 +48,6 @@ pipeline.add_step(
     parents=["data_preprocessing"],
     base_task_project="AI for Diabetes Prediction",
     base_task_name="Model Training",
-    repo="https://github.com/nue3535/aramco.git",
     script="src/model_training.py",
     working_directory=".",
     arguments={
@@ -66,7 +63,6 @@ pipeline.add_step(
     parents=["model_training"],
     base_task_project="AI for Diabetes Prediction",
     base_task_name="Model Evaluation",
-    repo="https://github.com/nue3535/aramco.git",
     script="src/model_evaluation.py",
     working_directory=".",
     arguments={
@@ -83,7 +79,6 @@ pipeline.add_step(
     parents=["model_evaluation"],
     base_task_project="AI for Diabetes Prediction",
     base_task_name="Model Selection",
-    repo="https://github.com/nue3535/aramco.git",
     script="src/model_selection.py",
     working_directory=".",
     arguments={
