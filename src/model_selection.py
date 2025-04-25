@@ -60,9 +60,9 @@ if __name__ == '__main__':
     # task.execute_remotely()
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--eval_rf_id', type=str, required=True)
-    parser.add_argument('--eval_svm_id', type=str, required=True)
-    parser.add_argument('--eval_logreg_id', type=str, required=True)
+    parser.add_argument('--eval_rf_id', type=str)
+    parser.add_argument('--eval_svm_id', type=str)
+    parser.add_argument('--eval_logreg_id', type=str)
     args = vars(parser.parse_args())
 
     main(args)
