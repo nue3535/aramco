@@ -25,7 +25,7 @@ def run_pipeline():
         base_task_project="AI for Diabetes Prediction",
         base_task_name="Template - Data Preprocessing",
         parameter_override={
-            "Args/input_path": "outputs/cleaned_data.csv",
+            "Args/input_path": "${data_ingestion.artifacts.cleaned_data_csv.url}", #TODO "outputs/cleaned_data.csv"
             "Args/output_train_x": "outputs/X_train.joblib",
             "Args/output_test_x": "outputs/X_test.joblib",
             "Args/output_train_y": "outputs/y_train.joblib",
