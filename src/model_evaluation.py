@@ -55,6 +55,8 @@ def plot_roc_curve(y_test, y_prob, save_path):
     return save_path
 
 def main(args):
+    print("✅ Script is running: model_evaluation.py (fresh clone)") #TODO
+
     # Resolve remote artifact paths
     model_path = StorageManager.get_local_copy(args['model_path'])
     test_x_path = StorageManager.get_local_copy(args['test_x'])
