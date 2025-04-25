@@ -4,13 +4,12 @@ import joblib
 import json
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')  # Use headless backend for plots
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score, roc_curve
 from clearml import Task, StorageManager
 
-matplotlib.use('Agg')
+matplotlib.use('Agg')  # Use headless backend for plots
 
 def evaluate_model(model, X_test, y_test):
     y_pred = model.predict(X_test)
@@ -80,7 +79,7 @@ def main(args):
 
 if __name__ == '__main__':
     task = Task.init(project_name="AI for Diabetes Prediction", task_name="Template - Model Evaluation")
-    task.execute_remotely()
+    # task.execute_remotely()
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_path', type=str, default='outputs/trained_model.joblib') # , required=True TODO
