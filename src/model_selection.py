@@ -54,7 +54,8 @@ def main(args):
 
 if __name__ == '__main__':
     task = Task.init(project_name="AI for Diabetes Prediction", task_name="Template - Model Selection")
-
+    task.execute_remotely()
+    
     # During template registration, use placeholder values
     parser = argparse.ArgumentParser()
     parser.add_argument('--eval_rf_id', type=str, default="rf_dummy_id")
