@@ -2,7 +2,7 @@ import argparse
 import os
 import json
 import shutil
-from clearml import Task, TaskNotFoundException
+from clearml import Task
 
 def load_metrics(metrics_path):
     with open(metrics_path, 'r') as f:
@@ -40,7 +40,7 @@ def main(args):
         }
 
         best_model = max(scores, key=scores.get)
-        print(f"🏆 Best Model Selected: {best_model}")
+        print(f"Best Model Selected: {best_model}")
 
         os.makedirs("outputs", exist_ok=True)
         best_model_path = "outputs/best_model.txt"
@@ -48,8 +48,8 @@ def main(args):
             f.write(f"Best Model: {best_model}")
         task.upload_artifact("best_model_name", artifact_object=best_model_path)
 
-    except (KeyError, TaskNotFoundException) as e:
-        print("🟡 Skipped model selection logic during registration (no real tasks yet)")
+    except Exception as e:
+        print("Skipped model selection logic during registration (no real tasks yet)")
         pass
 
 if __name__ == '__main__':
