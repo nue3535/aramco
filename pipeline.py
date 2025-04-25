@@ -39,8 +39,8 @@ def run_pipeline():
         base_task_project="AI for Diabetes Prediction",
         base_task_name="Template - Model Training",
         parameter_override={
-            "Args/train_x": "outputs/X_train.joblib",
-            "Args/train_y": "outputs/y_train.joblib",
+            "Args/train_x": "${data_preprocessing.artifacts.X_train.url}",
+            "Args/train_y": "${data_preprocessing.artifacts.y_train.url}",
             "Args/output_model": "outputs/trained_model.joblib",
             "Args/model_type": "random_forest"
         }
