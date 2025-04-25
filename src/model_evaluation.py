@@ -4,12 +4,11 @@ import joblib
 import json
 import numpy as np
 import matplotlib
+matplotlib.use('Agg')  # Use headless backend for plots
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score, roc_curve
 from clearml import Task, StorageManager
-
-matplotlib.use('Agg')  # Use headless backend for plots
 
 def evaluate_model(model, X_test, y_test):
     y_pred = model.predict(X_test)
