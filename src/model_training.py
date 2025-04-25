@@ -5,7 +5,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
-from clearml import Task
+from clearml import Task, StorageManager
 
 def train_model(model_name, X_train, y_train):
     if model_name == "logistic_regression":
@@ -31,18 +31,36 @@ def save_model(model, output_path):
     return output_path
 
 def main(args):
-    X_train = joblib.load(args['train_x'])
-    y_train = joblib.load(args['train_y'])
+    # Resolve remote ClearML artifact URLs to local file paths
+    path_x_train = StorageManager.get_local_copy(args['train_x'])
+    path_y_train = StorageManager.get_local_copy(args['train_y'])
 
+    # Load training data
+    X_train = joblib.load(path_x_train)
+    y_train = joblib.load(path_y_train)
+
+    # Train model
     model, score = train_model(args['model_type'], X_train, y_train)
     print(f"Best CV Score for {args['model_type']}: {score:.4f}")
 
+    # Save and upload model
     model_path = save_model(model, args['output_model'])
     task.upload_artifact(name=f"trained_model_{args['model_type']}", artifact_object=model_path)
 
+#TODO
+# def main(args):
+#     X_train = joblib.load(args['train_x'])
+#     y_train = joblib.load(args['train_y'])
+
+#     model, score = train_model(args['model_type'], X_train, y_train)
+#     print(f"Best CV Score for {args['model_type']}: {score:.4f}")
+
+#     model_path = save_model(model, args['output_model'])
+#     task.upload_artifact(name=f"trained_model_{args['model_type']}", artifact_object=model_path)
+
 if __name__ == '__main__':
     task = Task.init(project_name="AI for Diabetes Prediction", task_name="Template - Model Training")
-    task.execute_remotely()
+    # task.execute_remotely()
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--train_x', type=str, default='outputs/X_train.joblib')
