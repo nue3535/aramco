@@ -26,7 +26,7 @@ def main(args):
 
 if __name__ == '__main__':
     task = Task.init(project_name="AI for Diabetes Prediction", task_name="Template - Model Selection")
-    task.execute_remotely()
+    # task.execute_remotely()
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--metrics_path', type=str, default='outputs/metrics.json')
