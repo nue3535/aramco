@@ -65,7 +65,7 @@ def main(args):
 
 if __name__ == '__main__':
     task = Task.init(project_name="AI for Diabetes Prediction", task_name="Template - Data Preprocessing")
-    task.execute_remotely()
+    # task.execute_remotely()
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_path', type=str, default='data/diabetes.csv')
