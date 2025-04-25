@@ -51,7 +51,6 @@ def main(args):
 
 if __name__ == '__main__':
     task = Task.init(project_name="AI for Diabetes Prediction", task_name="Template - Data Preprocessing")
-    task.mark_task_template()
     task.execute_remotely()
 
     parser = argparse.ArgumentParser()
