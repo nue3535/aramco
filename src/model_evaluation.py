@@ -81,9 +81,9 @@ if __name__ == '__main__':
     # task.execute_remotely()
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_path', type=str, required=True)
-    parser.add_argument('--test_x', type=str, required=True)
-    parser.add_argument('--test_y', type=str, required=True)
+    parser.add_argument('--model_path', type=str, required=True, default='outputs/trained_model.joblib')
+    parser.add_argument('--test_x', type=str, required=True, default='outputs/X_test.joblib')
+    parser.add_argument('--test_y', type=str, required=True, default='outputs/y_test.joblib')
     parser.add_argument('--output_metrics', type=str, default='outputs/metrics.json')
     parser.add_argument('--conf_matrix_path', type=str, default='outputs/confusion_matrix.png')
     parser.add_argument('--roc_curve_path', type=str, default='outputs/roc_curve.png')
