@@ -83,7 +83,6 @@ def run_pipeline():
         parents=["train_rf"],
         base_task_project="AI for Diabetes Prediction",
         base_task_name="Template - Model Evaluation",
-        clone_task=True, #TODO
         parameter_override={
             "Args/model_path": "${train_rf.artifacts.trained_model_random_forest.url}",
             "Args/test_x": "${data_preprocessing.artifacts.X_test.url}",
@@ -97,7 +96,6 @@ def run_pipeline():
         parents=["train_svm"],
         base_task_project="AI for Diabetes Prediction",
         base_task_name="Template - Model Evaluation",
-        clone_task=True, #TODO
         parameter_override={
             "Args/model_path": "${train_svm.artifacts.trained_model_svm.url}",
             "Args/test_x": "${data_preprocessing.artifacts.X_test.url}",
@@ -111,7 +109,6 @@ def run_pipeline():
         parents=["train_logreg"],
         base_task_project="AI for Diabetes Prediction",
         base_task_name="Template - Model Evaluation",
-        clone_task=True, #TODO
         parameter_override={
             "Args/model_path": "${train_logreg.artifacts.trained_model_logistic_regression.url}",
             "Args/test_x": "${data_preprocessing.artifacts.X_test.url}",
