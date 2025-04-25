@@ -73,8 +73,10 @@ def run_pipeline():
         }
     )
 
-    pipe.start()
-    pipe.wait()
+    # pipe.start() #TODO
+    # pipe.wait() #TODO
+    # for debugging purposes use local jobs
+    pipe.start_locally() #TODO
     print("Pipeline execution complete.")
 
 if __name__ == "__main__":
