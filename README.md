@@ -26,7 +26,7 @@ For the end to end execution of this pipeline using google colab we would need 2
 ```
 !clearml-agent daemon --queue "default" --detached
 ```
->**Note -** Change the queue name in the command above if you are using some other queue. I am using **default queue**
+>**Note -** Change the queue name in the command above if you are using some other queue. For now using **default queue**
 
 
 
@@ -35,7 +35,7 @@ For the end to end execution of this pipeline using google colab we would need 2
 ```
 !git clone -b mlops-level1  https://github.com/nue3535/aramco.git
 ```
->**Note -** I am clonning branch **mlops-level1**. If you want to clone main branch use command
+>**Note -** For now we are clonning branch **mlops-level1**. If you want to clone main branch use command
 >
 >```!git clone https://github.com/nue3535/aramco.git```
 
