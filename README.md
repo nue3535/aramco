@@ -22,7 +22,7 @@ For the end to end execution of this pipeline using google colab we would need 2
 ```
 !clearml-agent init
 ```
-**step 4 - Run clearml agent daemon in background mode**
+**Step 4 - Run clearml agent daemon in background mode**
 ```
 !clearml-agent daemon --queue "default" --detached
 ```
