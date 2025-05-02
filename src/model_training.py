@@ -1,0 +1,72 @@
+# Import necessary libraries
+import argparse
+import os
+import joblib
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
+from clearml import Task, StorageManager
+
+# Function to train the model based on the specified type
+def train_model(model_name, X_train, y_train):
+    # Define model and its hyperparameter grid
+    if model_name == "logistic_regression":
+        model = LogisticRegression(max_iter=1000)
+        params = {'C': [0.1, 1.0, 10], 'solver': ['liblinear', 'lbfgs']}
+    elif model_name == "random_forest":
+        model = RandomForestClassifier(random_state=42)
+        params = {'n_estimators': [50, 100], 'max_depth': [None, 10], 'min_samples_split': [2, 5]}
+    elif model_name == "svm":
+        model = SVC(probability=True)
+        params = {'C': [0.1, 1.0, 10], 'kernel': ['linear', 'rbf']}
+    else:
+        raise ValueError("Unsupported model name") # Error if model is not recognized
+
+    # Perform grid search to find the best hyperparameters
+    grid = GridSearchCV(model, params, cv=5)
+    grid.fit(X_train, y_train)
+    return grid.best_estimator_, grid.best_score_ # Return best model and score
+
+# Function to save the trained model
+def save_model(model, output_path):
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    joblib.dump(model, output_path)
+    print(f"Model saved to: {output_path}")
+    return output_path
+
+# Main function to load data, train model, and save it
+def main(args):
+    # Download training data from ClearML if needed
+    path_x_train = StorageManager.get_local_copy(args['train_x'])
+    path_y_train = StorageManager.get_local_copy(args['train_y'])
+
+    # Load training feature and label data
+    X_train = joblib.load(path_x_train)
+    y_train = joblib.load(path_y_train)
+
+    # Train selected model type
+    model, score = train_model(args['model_type'], X_train, y_train)
+    print(f"Best CV Score for {args['model_type']}: {score:.4f}")
+
+    # Save the model and upload it to ClearML
+    model_path = save_model(model, args['output_model'])
+    task.upload_artifact(name=f"trained_model_{args['model_type']}", artifact_object=model_path)
+
+# Entry point when executed directly
+if __name__ == '__main__':
+    # Initialize ClearML task
+    task = Task.init(project_name="AI for Diabetes Prediction", task_name="Template - Model Training")
+    task.execute_remotely() # Execute task on ClearML agent
+
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--train_x', type=str, default='outputs/X_train.joblib')
+    parser.add_argument('--train_y', type=str, default='outputs/y_train.joblib')
+    parser.add_argument('--output_model', type=str, default='outputs/trained_model.joblib')
+    parser.add_argument('--model_type', type=str, default='random_forest') # Specify model type
+    
+    args = vars(parser.parse_args())
+
+    # Run main pipeline
+    main(args)
