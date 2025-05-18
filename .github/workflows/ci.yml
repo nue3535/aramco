@@ -36,8 +36,9 @@ jobs:
               secret_key: ${{ secrets.CLEARML_API_SECRET_KEY }}
           }
         }" > ~/.clearml/clearml.conf
+        pwd
+        cat ~/.clearml/clearml.conf
 
-
-    - name: Run ClearML Pipeline
-      run: |
-        python pipeline.py
+    # - name: Run ClearML Pipeline
+    #   run: |
+    #     python pipeline.py
