@@ -8,6 +8,10 @@ on:
 
 jobs:
   build-and-run:
+    CLEARML_API_ACCESS_KEY: ${{ secrets.CLEARML_API_ACCESS_KEY }}
+    CLEARML_API_SECRET_KEY: ${{ secrets.CLEARML_API_SECRET_KEY }}
+    CLEARML_API_HOST: https://app.clear.ml
+    
     runs-on: ubuntu-latest
 
     steps:
@@ -37,12 +41,12 @@ jobs:
     #       }
     #     }" > ~/.clearml/clearml.conf
 
-    - name: Set ClearML credentials
-      run: echo "ClearML environment variables set."
-      env:
-        CLEARML_API_ACCESS_KEY: ${{ secrets.CLEARML_API_ACCESS_KEY }}
-        CLEARML_API_SECRET_KEY: ${{ secrets.CLEARML_API_SECRET_KEY }}
-        CLEARML_API_HOST: https://app.clear.ml
+    # - name: Set ClearML credentials
+    #   run: echo "ClearML environment variables set."
+    #   env:
+    #     CLEARML_API_ACCESS_KEY: ${{ secrets.CLEARML_API_ACCESS_KEY }}
+    #     CLEARML_API_SECRET_KEY: ${{ secrets.CLEARML_API_SECRET_KEY }}
+    #     CLEARML_API_HOST: https://app.clear.ml
 
 
     - name: Run ClearML Pipeline
