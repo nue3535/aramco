@@ -26,4 +26,4 @@ jobs:
 
     - name: Run ClearML Pipeline
       run: |
-        python aramco/pipeline.py
+        python pipeline.py
