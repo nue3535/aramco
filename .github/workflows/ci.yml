@@ -8,9 +8,10 @@ on:
 
 jobs:
   build-and-run:
-    CLEARML_API_ACCESS_KEY: ${{ secrets.CLEARML_API_ACCESS_KEY }}
-    CLEARML_API_SECRET_KEY: ${{ secrets.CLEARML_API_SECRET_KEY }}
-    CLEARML_API_HOST: https://app.clear.ml
+    env:
+      CLEARML_API_ACCESS_KEY: ${{ secrets.CLEARML_API_ACCESS_KEY }}
+      CLEARML_API_SECRET_KEY: ${{ secrets.CLEARML_API_SECRET_KEY }}
+      CLEARML_API_HOST: https://app.clear.ml
     
     runs-on: ubuntu-latest
 
