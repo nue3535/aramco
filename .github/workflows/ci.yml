@@ -22,10 +22,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pwd
-        ls
-#        pip install -r aramco/requirements.txt
+        pip install -r requirements.txt
 
-    - name: Run ClearML Pipeline
-      run: |
-        python aramco/pipeline.py
+    # - name: Run ClearML Pipeline
+    #   run: |
+    #     python aramco/pipeline.py
