@@ -29,25 +29,29 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # - name: Configure ClearML credentials ##
-    #   run: |
-    #     mkdir -p ~/.clearml
-    #     echo "api {
-    #       web_server: https://app.clear.ml
-    #       api_server: https://api.clear.ml
-    #       files_server: https://files.clear.ml
-    #       credentials {
-    #           access_key: ${{ secrets.CLEARML_API_ACCESS_KEY }}
-    #           secret_key: ${{ secrets.CLEARML_API_SECRET_KEY }}
-    #       }
-    #     }" > ~/.clearml/clearml.conf
+    - name: Running the ClearML Agent
+      run : |
+        clearml-agent daemon --queue "default" --detached
 
-    # - name: Set ClearML credentials
-    #   run: echo "ClearML environment variables set."
-    #   env:
-    #     CLEARML_API_ACCESS_KEY: ${{ secrets.CLEARML_API_ACCESS_KEY }}
-    #     CLEARML_API_SECRET_KEY: ${{ secrets.CLEARML_API_SECRET_KEY }}
-    #     CLEARML_API_HOST: https://app.clear.ml
+#    - name: Configure ClearML credentials ##
+#       run: |
+#         mkdir -p ~/.clearml
+#         echo "api {
+#           web_server: https://app.clear.ml
+#           api_server: https://api.clear.ml
+#           files_server: https://files.clear.ml
+#           credentials {
+#               access_key: ${{ secrets.CLEARML_API_ACCESS_KEY }}
+#               secret_key: ${{ secrets.CLEARML_API_SECRET_KEY }}
+#           }
+#         }" > ~/.clearml/clearml.conf
+
+#     - name: Set ClearML credentials
+#       run: echo "ClearML environment variables set."
+#       env:
+#         CLEARML_API_ACCESS_KEY: ${{ secrets.CLEARML_API_ACCESS_KEY }}
+#         CLEARML_API_SECRET_KEY: ${{ secrets.CLEARML_API_SECRET_KEY }}
+#         CLEARML_API_HOST: https://app.clear.ml
 
 
     - name: Run ClearML Pipeline
