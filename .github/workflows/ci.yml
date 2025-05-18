@@ -24,6 +24,20 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Configure ClearML credentials
+      run: |
+        mkdir -p ~/.clearml
+        echo "api {
+          web_server: https://app.clear.ml
+          api_server: https://api.clear.ml
+          files_server: https://files.clear.ml
+          credentials {
+              access_key: ${{ secrets.CLEARML_API_ACCESS_KEY }}
+              secret_key: ${{ secrets.CLEARML_API_SECRET_KEY }}
+          }
+        }" > ~/.clearml/clearml.conf
+
+
     - name: Run ClearML Pipeline
       run: |
         python pipeline.py
