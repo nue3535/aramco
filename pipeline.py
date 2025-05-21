@@ -12,7 +12,7 @@ def run_pipeline():
     # Set the default ClearML execution queue where all steps will be executed
     pipe.set_default_execution_queue("default")
 
-    # 1. Data Ingestion
+    # Data Ingestion
     # This step reads the raw dataset and saves a cleaned CSV
     pipe.add_step(
         name="data_ingestion",
@@ -24,7 +24,7 @@ def run_pipeline():
         }
     )
 
-    # 2. Data Preprocessing
+    # Data Preprocessing
     # This step cleans, scales, and splits the data into training/testing sets
     pipe.add_step(
         name="data_preprocessing",
@@ -41,7 +41,7 @@ def run_pipeline():
         }
     )
 
-    # 2.5. HPO Tuning (New Step)
+    # HPO Tuning
     pipe.add_step(
         name="hpo_tuning",
         parents=["data_preprocessing"],
@@ -53,7 +53,7 @@ def run_pipeline():
         }
     )
 
-    # 3. Model Training (Random Forest)
+    # Model Training (Random Forest)
     pipe.add_step(
         name="train_rf",
         parents=["hpo_tuning"],
@@ -68,7 +68,7 @@ def run_pipeline():
         }
     )
 
-    # 4. Model Training (SVM)
+    # Model Training (SVM)
     pipe.add_step(
         name="train_svm",
         parents=["hpo_tuning"],
@@ -83,7 +83,7 @@ def run_pipeline():
         }
     )
 
-    # 5. Model Training (Logistic Regression)
+    # Model Training (Logistic Regression)
     pipe.add_step(
         name="train_logreg",
         parents=["hpo_tuning"],
@@ -98,7 +98,7 @@ def run_pipeline():
         }
     )
 
-    # 6. Model Evaluation (Random Forest)
+    # Model Evaluation (Random Forest)
     pipe.add_step(
         name="eval_rf",
         parents=["train_rf"], # Depends on RF model being trained
@@ -111,7 +111,7 @@ def run_pipeline():
         }
     )
 
-    # 7. Model Evaluation (SVM)
+    # Model Evaluation (SVM)
     pipe.add_step(
         name="eval_svm",
         parents=["train_svm"],
@@ -124,7 +124,7 @@ def run_pipeline():
         }
     )
 
-    # 8. Model Evaluation (Logistic Regression)
+    # Model Evaluation (Logistic Regression)
     pipe.add_step(
         name="eval_logreg",
         parents=["train_logreg"],
@@ -137,7 +137,7 @@ def run_pipeline():
         }
     )
 
-    # 9. Model Selection
+    # Model Selection
     # Compares evaluation results from all models and selects the best one
     pipe.add_step(
         name="model_selection",
