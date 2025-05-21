@@ -3,7 +3,7 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - cicd #TODO
+      - main
   workflow_dispatch:
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
 
     - name: Running the ClearML Queue
       run : |
-        clearml-agent daemon --queue "default" --detached
+        clearml-agent daemon --queue "default" --once
 
     - name: Run ClearML Pipeline
       run: |

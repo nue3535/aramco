@@ -44,14 +44,8 @@ def run_optuna(model_name, X_train, y_train):
 
 def main(args):
 
-    print(f"⛏️ [DEBUG] Received train_x: {args['train_x']}") #TODO
-    print(f"⛏️ [DEBUG] Received train_y: {args['train_y']}") #TODO
-
     path_x_train = StorageManager.get_local_copy(args['train_x'])
     path_y_train = StorageManager.get_local_copy(args['train_y'])
-
-    print(f"📦 [DEBUG] Resolved path_x_train: {path_x_train}") #TODO
-    print(f"📦 [DEBUG] Resolved path_y_train: {path_y_train}") #TODO
 
     X_train = joblib.load(path_x_train)
     y_train = joblib.load(path_y_train)
