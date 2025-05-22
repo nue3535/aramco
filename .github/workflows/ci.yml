@@ -36,3 +36,9 @@ jobs:
     - name: Run ClearML Pipeline
       run: |
         python pipeline.py
+
+    - name: Upload Model Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: best_model
+        path: deployed_models/best_model.joblib
