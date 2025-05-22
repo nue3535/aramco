@@ -31,7 +31,7 @@ jobs:
 
     - name: Running the ClearML Queue
       run : |
-        clearml-agent daemon --queue "default" --once
+        clearml-agent daemon --queue "default" --detached
 
     - name: Run ClearML Pipeline
       run: |
