@@ -37,6 +37,10 @@ jobs:
       run: |
         python pipeline.py
 
+    - name: Download best model from ClearML
+      run: |
+        python scripts/fetch_best_model.py
+
     - name: Upload model artifact
       uses: actions/upload-artifact@v4
       with:

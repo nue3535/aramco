@@ -151,16 +151,16 @@ def run_pipeline():
         }
     )
 
-    pipe.add_step(
-    name="extract_best_model",
-    parents=["model_selection"],
-    base_task_project="AI for Diabetes Prediction",
-    base_task_name="Template - Extract Best Model",
-    parameter_override={
-        "Args/model_selection_id": "${model_selection.id}",
-        "Args/output_model_path": "deployed_models/best_model.joblib"
-    }
-)
+#     pipe.add_step(
+#     name="extract_best_model",
+#     parents=["model_selection"],
+#     base_task_project="AI for Diabetes Prediction",
+#     base_task_name="Template - Extract Best Model",
+#     parameter_override={
+#         "Args/model_selection_id": "${model_selection.id}",
+#         "Args/output_model_path": "deployed_models/best_model.joblib"
+#     }
+# )
 
     # Start the pipeline
     pipe.start_locally()
