@@ -7,54 +7,38 @@ on:
   workflow_dispatch:
 
 jobs:
-
-  upload-test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Create test file
-        run: echo "Test content" > test_output.txt
-
-      - name: Upload file
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-file
-          path: test_output.txt
-
-  # build-and-run:
-  #   env:
-  #     CLEARML_API_ACCESS_KEY: ${{ secrets.CLEARML_API_ACCESS_KEY }}
-  #     CLEARML_API_SECRET_KEY: ${{ secrets.CLEARML_API_SECRET_KEY }}
-  #     CLEARML_API_HOST: https://api.clear.ml
+  build-and-run:
+    env:
+      CLEARML_API_ACCESS_KEY: ${{ secrets.CLEARML_API_ACCESS_KEY }}
+      CLEARML_API_SECRET_KEY: ${{ secrets.CLEARML_API_SECRET_KEY }}
+      CLEARML_API_HOST: https://api.clear.ml
     
-  #   runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v3
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-  #   - name: Set up Python
-  #     uses: actions/setup-python@v4
-  #     with:
-  #       python-version: '3.10'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
 
-  #   - name: Install dependencies
-  #     run: |
-  #       python -m pip install --upgrade pip
-  #       pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-  #   - name: Running the ClearML Queue
-  #     run : |
-  #       clearml-agent daemon --queue "default" --once
+    - name: Running the ClearML Queue
+      run : |
+        clearml-agent daemon --queue "default" --once
 
-  #   - name: Run ClearML Pipeline
-  #     run: |
-  #       python pipeline.py
+    - name: Run ClearML Pipeline
+      run: |
+        python pipeline.py
 
-  #   - name: Upload model artifact
-  #     uses: actions/upload-artifact@v3
-  #     with:
-  #       name: best_model
-  #       path: deployed_models/best_model.joblib
+    - name: Upload model artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: best_model
+        path: deployed_models/best_model.joblib
