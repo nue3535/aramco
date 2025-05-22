@@ -1,3 +1,8 @@
 clearml
 clearml-agent
 optuna
+fastapi
+uvicorn
+joblib
+clearml
+scikit-learn
