@@ -3,7 +3,7 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - cicd #apicreation
+      - apicreation
   workflow_dispatch:
 
 jobs:
