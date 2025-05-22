@@ -81,7 +81,7 @@ def main(args):
         if artifact_key in best_training_task.artifacts:
             artifact = best_training_task.artifacts[artifact_key]
             artifact.metadata['tag'] = 'best_production_model'
-            best_training_task.set_artifacts({artifact_key: artifact})
+            artifact._register(artifact_name=artifact_key, task=best_training_task)
             print(f"Tagged '{artifact_key}' as 'best_production_model'")
         else:
             print(f"Artifact '{artifact_key}' not found in task '{best_model}'")
