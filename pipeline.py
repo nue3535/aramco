@@ -147,10 +147,10 @@ def run_pipeline():
         parameter_override={
             "Args/eval_rf_id": "${eval_rf.id}", # Pass RF evaluation task ID
             "Args/eval_svm_id": "${eval_svm.id}", # Pass SVM evaluation task ID
-            "Args/eval_logreg_id": "${eval_logreg.id}" # Pass LogReg evaluation task ID
+            "Args/eval_logreg_id": "${eval_logreg.id}", # Pass LogReg evaluation task ID
             "Args/train_rf_id": "${train_rf.id}", # Pass RF training task ID
             "Args/train_svm_id": "${train_svm.id}", # Pass SVM training task ID
-            "Args/train_logreg_id": "${train_logreg.id}", # Pass LogReg training task ID
+            "Args/train_logreg_id": "${train_logreg.id}" # Pass LogReg training task ID
 
         }
     )
