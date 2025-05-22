@@ -1,3 +1,7 @@
 clearml
 clearml-agent
 optuna
+streamlit
+scikit-learn
+numpy
+joblib
