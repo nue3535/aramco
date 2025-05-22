@@ -3,7 +3,7 @@ import numpy as np
 import joblib
 
 # Load model
-model = joblib.load("model.joblib")
+model = joblib.load("rf_model.joblib")
 
 st.title("Diabetes Prediction App")
 
@@ -20,7 +20,7 @@ age = st.number_input("Age")
 
 
 if st.button("Predict"):
-    features = np.array([[pregnancies, glucose, bloodpressure, skinthickness, insulin, bmi, diabetespedigreefunction, age]])  # shape must match training
+    features = np.array([[pregnancies, glucose, bloodpressure, skinthickness, insulin, bmi, diabetespedigreefunction, age]])
     prediction = model.predict(features)
     result = "Diabetic" if prediction[0] == 1 else "Non-Diabetic"
     st.success(f"Prediction: {result}")

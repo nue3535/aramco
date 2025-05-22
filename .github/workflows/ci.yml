@@ -3,7 +3,7 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - main
+      - testing_download
   workflow_dispatch:
 
 jobs:
@@ -29,10 +29,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Running the ClearML Queue
-      run : |
-        clearml-agent daemon --queue "default" --detached
+    # - name: Running the ClearML Queue #TODO
+    #   run : |
+    #     clearml-agent daemon --queue "default" --detached
 
-    - name: Run ClearML Pipeline
+    # - name: Run ClearML Pipeline
+    #   run: |
+    #     python pipeline.py
+
+    - name: Deploy to Streamlit
       run: |
-        python pipeline.py
+        streamlit run app.py
