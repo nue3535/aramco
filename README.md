@@ -56,7 +56,7 @@ For the end to end execution of this pipeline using google colab we would need 2
 >**Note -** After running the above command you will be asked to pass your ClearML credentials in the terminal.
 
 **Step 5 - Pre-register task templates in clearml one by one**
-> **Note -** Make sure you comment out **"task.execute_remotely()"** in all the 5 scripts we are going to execute in this step
+> **Note -** Make sure you comment out **"task.execute_remotely()"** in all the 6 scripts we are going to execute in this step
 ![image](https://github.com/user-attachments/assets/669d2ab3-7ce6-416b-9788-3b8364600816)
 
 ```
@@ -64,6 +64,9 @@ For the end to end execution of this pipeline using google colab we would need 2
 ```
 ```
 !python src/data_preprocessing.py
+```
+```
+!python src/hpo_tuning.py
 ```
 ```
 !python src/model_training.py
@@ -75,10 +78,10 @@ For the end to end execution of this pipeline using google colab we would need 2
 !python src/model_selection.py
 ```
 
-After running all 5 scripts you should be able to see your registered tasks in ClearML dashboard like this
+After running all 6 scripts you should be able to see your registered tasks in ClearML dashboard like this
 ![image](https://github.com/user-attachments/assets/3cade609-0c53-462c-ae0b-665ebf6099c4)
 
-> **Note -** After successfully registering all the tasks make sure to remove the comment **"task.execute_remotely()"** from all 5 scripts which we added before executing them.
+> **Note -** After successfully registering all the tasks make sure to remove the comment **"task.execute_remotely()"** from all 6 scripts which we added before executing them.
 
 **Step 6** - Executing the ClearML Pipeline
 ```
