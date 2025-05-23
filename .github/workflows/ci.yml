@@ -1,0 +1,43 @@
+# CI Pipeline for running ClearML pipeline on push or manual dispatch
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-run:
+    env:
+      # Set environment variables for ClearML authentication
+      CLEARML_API_ACCESS_KEY: ${{ secrets.CLEARML_API_ACCESS_KEY }}
+      CLEARML_API_SECRET_KEY: ${{ secrets.CLEARML_API_SECRET_KEY }}
+      CLEARML_API_HOST: https://api.clear.ml
+    
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3 # Pull repo content into the runner
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10' # Choose Python version for the workflow
+
+    # Install the dependencies using requirements file
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt 
+
+    # Assign ClearML queue with agent
+    - name: Running the ClearML Queue
+      run : |
+        clearml-agent daemon --queue "default" --detached
+
+    # Execute the ClearML pipeline
+    - name: Run ClearML Pipeline
+      run: |
+        python pipeline.py

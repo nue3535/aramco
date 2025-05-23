@@ -12,7 +12,7 @@ def run_pipeline():
     # Set the default ClearML execution queue where all steps will be executed
     pipe.set_default_execution_queue("default")
 
-    # 1. Data Ingestion
+    # Data Ingestion
     # This step reads the raw dataset and saves a cleaned CSV
     pipe.add_step(
         name="data_ingestion",
@@ -24,7 +24,7 @@ def run_pipeline():
         }
     )
 
-    # 2. Data Preprocessing
+    # Data Preprocessing
     # This step cleans, scales, and splits the data into training/testing sets
     pipe.add_step(
         name="data_preprocessing",
@@ -41,49 +41,64 @@ def run_pipeline():
         }
     )
 
-    # 3. Model Training (Random Forest)
+    # HPO Tuning
+    pipe.add_step(
+        name="hpo_tuning",
+        parents=["data_preprocessing"],
+        base_task_project="AI for Diabetes Prediction",
+        base_task_name="Template - HPO Tuning",
+        parameter_override={
+            "Args/train_x": "${data_preprocessing.artifacts.X_train.url}",
+            "Args/train_y": "${data_preprocessing.artifacts.y_train.url}"
+        }
+    )
+
+    # Model Training (Random Forest)
     pipe.add_step(
         name="train_rf",
-        parents=["data_preprocessing"],
+        parents=["hpo_tuning"],
         base_task_project="AI for Diabetes Prediction",
         base_task_name="Template - Model Training",
         parameter_override={
             "Args/train_x": "${data_preprocessing.artifacts.X_train.url}",
             "Args/train_y": "${data_preprocessing.artifacts.y_train.url}",
-            "Args/output_model": "outputs/rf_model.joblib", # Output model file
+            "Args/output_model": "outputs/rf_model.joblib",
+            "Args/best_params_path": "${hpo_tuning.artifacts.hpo_best_params.url}", # Output model file
             "Args/model_type": "random_forest" # Specify model type
         }
     )
 
-    # 4. Model Training (SVM)
+    # Model Training (SVM)
     pipe.add_step(
         name="train_svm",
-        parents=["data_preprocessing"],
+        parents=["hpo_tuning"],
         base_task_project="AI for Diabetes Prediction",
         base_task_name="Template - Model Training",
         parameter_override={
             "Args/train_x": "${data_preprocessing.artifacts.X_train.url}",
             "Args/train_y": "${data_preprocessing.artifacts.y_train.url}",
             "Args/output_model": "outputs/svm_model.joblib",
+            "Args/best_params_path": "${hpo_tuning.artifacts.hpo_best_params.url}",
             "Args/model_type": "svm"
         }
     )
 
-    # 5. Model Training (Logistic Regression)
+    # Model Training (Logistic Regression)
     pipe.add_step(
         name="train_logreg",
-        parents=["data_preprocessing"],
+        parents=["hpo_tuning"],
         base_task_project="AI for Diabetes Prediction",
         base_task_name="Template - Model Training",
         parameter_override={
             "Args/train_x": "${data_preprocessing.artifacts.X_train.url}",
             "Args/train_y": "${data_preprocessing.artifacts.y_train.url}",
             "Args/output_model": "outputs/logreg_model.joblib",
+            "Args/best_params_path": "${hpo_tuning.artifacts.hpo_best_params.url}",
             "Args/model_type": "logistic_regression"
         }
     )
 
-    # 6. Model Evaluation (Random Forest)
+    # Model Evaluation (Random Forest)
     pipe.add_step(
         name="eval_rf",
         parents=["train_rf"], # Depends on RF model being trained
@@ -96,7 +111,7 @@ def run_pipeline():
         }
     )
 
-    # 7. Model Evaluation (SVM)
+    # Model Evaluation (SVM)
     pipe.add_step(
         name="eval_svm",
         parents=["train_svm"],
@@ -109,7 +124,7 @@ def run_pipeline():
         }
     )
 
-    # 8. Model Evaluation (Logistic Regression)
+    # Model Evaluation (Logistic Regression)
     pipe.add_step(
         name="eval_logreg",
         parents=["train_logreg"],
@@ -122,7 +137,7 @@ def run_pipeline():
         }
     )
 
-    # 9. Model Selection
+    # Model Selection
     # Compares evaluation results from all models and selects the best one
     pipe.add_step(
         name="model_selection",
@@ -142,3 +157,4 @@ def run_pipeline():
 
 if __name__ == "__main__":
     run_pipeline()
+    
