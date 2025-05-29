@@ -12,16 +12,19 @@ For the end to end execution of this pipeline using google colab we would need 2
 !pip install clearml
 !pip install clearml-agent
 ```
+
 **Step 2 - Initialize clearml**
 ```
 !clearml-init
 ```
+
 >**Note -** After running the above command you will be asked to pass your ClearML credentials in the terminal.
 
 **Step 3 - Initialize clearml agent**
 ```
 !clearml-agent init
 ```
+
 **Step 4 - Run clearml agent daemon in background mode**
 ```
 !clearml-agent daemon --queue "default" --detached
@@ -35,6 +38,7 @@ For the end to end execution of this pipeline using google colab we would need 2
 ```
 !git clone -b mlops-level1  https://github.com/nue3535/aramco.git
 ```
+
 >**Note -** For now we are clonning branch **mlops-level1**. If you want to clone main branch use command
 >
 >```!git clone https://github.com/nue3535/aramco.git```
@@ -62,18 +66,23 @@ For the end to end execution of this pipeline using google colab we would need 2
 ```
 !python src/data_ingestion.py
 ```
+
 ```
 !python src/data_preprocessing.py
 ```
+
 ```
 !python src/hpo_tuning.py
 ```
+
 ```
 !python src/model_training.py
 ```
+
 ```
 !python src/model_evaluation.py
 ```
+
 ```
 !python src/model_selection.py
 ```
@@ -128,10 +137,12 @@ Due to limited cloud resources, the application is deployed manually and run loc
 ```
 pip install streamlit
 ```
+
 3. Launch the Streamlit app
 ```
 streamlit run app.py
 ```
+
 4. Open your browser and go to
 ```
 http://localhost:8501
